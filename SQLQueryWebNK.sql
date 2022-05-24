@@ -19,7 +19,6 @@ create table Korisnik(
 
 create table koncert(
 	id int primary key identity(1,1),
-	korisnik int,
 	lokacija varchar(30),
 	izvodjac varchar(50)
 )
@@ -27,7 +26,7 @@ create table vreme
 (
 	id int primary key identity(1,1),
 	dan date,
-	vreme varchar(20)
+	vreme time
 )
 
 create table rezervacija
@@ -107,16 +106,6 @@ end Catch
 go
 
 go
-create proc SviKoncerti
-as
-begin try
-select * from Koncert
-end try
-Begin Catch
-	Return @@error
-end Catch
-
-go
 create proc ZakaziKarte
 @korisnik int,
 @koncert int,
@@ -134,3 +123,4 @@ end try
 Begin Catch
 	Return @@error
 End catch
+go
