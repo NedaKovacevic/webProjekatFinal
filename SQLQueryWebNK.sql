@@ -124,3 +124,36 @@ Begin Catch
 	Return @@error
 End catch
 go
+go
+create proc dbo.updatekorisnika
+@email nvarchar(50),
+@lozinka nvarchar(100)
+as
+begin try
+	if exists (select top 1 email from dbo.korisnik
+	where email = @email  )
+
+	begin
+	
+	update korisnik  set lozinka=@lozinka  where email=@email
+		return 0;
+	end
+	return -1;
+end try
+begin catch
+	return @@error;
+end catch
+go
+ go
+create proc deletekorisnika
+@email nvarchar(100)
+as
+begin try
+delete from korisnik where email=@email
+return 0
+end try
+begin catch
+	return @@error;
+end catch
+go
+
